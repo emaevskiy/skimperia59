@@ -1,0 +1,326 @@
+/* mixins */
+
+@mixin btnColor($bg, $font) {background-color: $bg; border: 1px solid darken($bg, 10%); color: $font;}
+
+
+/* display */
+
+$min-display-width: 320px;
+
+$breakpoint-xs: 576px;
+$breakpoint-sm: 767px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1440px;
+
+
+/* colors */
+$main-color: #ebaf5e;
+$default: #f4f4f4;
+$primary: #209e91;
+$secondary: #868e96;
+$success: #00a65a;
+$info: #00c0ef;
+$danger: #dd4b39;
+$warning: #f39c12;
+
+
+/* fonts */
+
+@font-face {
+  font-family: 'BravoRegular';
+  font-weight: normal;
+  src: url('../fonts/ProximaNova/BravoRegular.woff') format("woff");
+}
+
+
+/* base */
+
+* {box-sizing: border-box;}
+
+html {min-height: 100vh; height: 100%; line-height: 1.15; font-size: 16px;}
+body {height: 100%; overflow-x: hidden; background: url('../img/bg-fone/bg.jpg') center no-repeat fixed; background-size: cover; min-width: $min-display-width;}
+
+
+html, body, h1, h2, h3, h4, h5, h6, {margin: 0;}
+
+
+.container {transition: .5s;}
+
+.button {padding: .5em 1em; font-weight: 600; border: none; border-radius: 5px; cursor: pointer; white-space: pre-wrap; min-width: 140px; line-height: 1.2; transition: .3s;
+  &-block {display: block; width: 100%;}
+  &-success {@include btnColor($success, #fff);
+    &:hover {@include btnColor(darken($success, 5%), #fff);}
+    &:active {@include btnColor(darken($success, 10%), #fff);}
+  }
+}
+
+
+.form-control {padding-bottom: 10px; width: 100%;
+  input[type=text] {width: 100%; padding: .5em .6em; border: 1px solid #cccccc; box-shadow: inset 0 0 6px 1px rgba(0, 0, 0, .2); transition: .5s;}
+  input[type=text].error {border: 1px solid red; box-shadow: inset 0 0 7px 1px rgba(255, 0, 0, .5);}
+  input[type=text].valid {border: 1px solid green;}
+  input[type=text].error + .form-control-message {display: block; color: red;}
+  &-message {display: none; font-size: .8em;}
+}
+
+
+.wrapper {display: flex; flex-direction: column; min-height: 100%;}
+
+
+.header {padding-top: 3rem;
+  &-logo {display: flex; align-items: center;}
+  &-brendname {font-weight: 700; font-size: 18px; margin-left: 20px;}
+  &-title {border: 6px solid $main-color; background: rgba(255,255,255,.9); margin-bottom: 0px; opacity: 1; transition: .5s;
+    h1 {text-align: center; padding: 10px; font-weight: 700; font-size: 18px; transition: .5s;}
+    &-lg { margin-top: 60px;
+      h1 {padding: 28px; font-weight: 700; font-size: 28px;}
+    }
+  }
+  &-info {min-height: 80px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; font-weight: 600;
+    .phone {font-size: 18px; color: #000;}
+    .email {font-size: 14px; color: #000;}
+    .adress {font-size: 14px; color: #000;}
+  }
+}
+
+
+.logo {display: block; min-height: 80px;
+  // img {width: 100%; height: 100%;}
+}
+
+
+.test {
+  &-step {display: none;
+    &-active {display: block;}
+  }
+  &-question {font-size: 20px; margin-bottom: 33px; line-height: 1.35;}
+  &-answers {list-style: none; padding: 0;}
+  &-answer {position: relative; display: flex; align-items: center; padding: 10px 10px 10px 50px; margin-bottom: 5px; min-height: 50px; @include btnColor($main-color, #111); cursor: pointer; transition: .3s;
+    input[type=radio] {display: none;
+      & + span {position: absolute; left: 10px; display: block; width: 30px; height: 30px; background: rgba(255,255,255,.9); border: 2px solid darken($main-color, 10%); border-radius: 50%; margin-right: 15px;}
+      &:checked + span {
+        &::after {content: ''; position: absolute; dispaly: block; width: 60%; height: 60%; border-radius: 50%; background: $main-color; top: 0; bottom: 0; left: 0; right: 0; margin: auto;}
+      }
+    }
+    input[type=checkbox] {display: none;
+      & + span {position: absolute; left: 10px; display: block; width: 30px; height: 30px; background: rgba(255,255,255,.9); border: 2px solid darken($main-color, 10%); margin-right: 15px;}
+      &:checked + span {
+        &::after {content: ''; position: absolute; dispaly: block; width: 40%; height: 60%; border-right: 4px solid $main-color; border-bottom: 4px solid $main-color; top: 0; bottom: 13.33333%; left: 6.66667%; right: 0; margin: auto; transform: rotate(45deg);}
+      }
+    }
+    &:hover {@include btnColor(darken($main-color, 5%), #111);}
+  }
+  &-btn {margin-top: 10px; font-size: 1.1em; text-align: right;}
+}
+
+
+.presents {
+  &-header {text-align: center; margin-bottom: 15px; font-weight: 600; font-size: 1em;}
+  &-body {padding: 15px; @include btnColor(#dddddd, #111); min-height: 160px;
+    ol {margin-top: 0; font-size: 1em; padding-left: 1em;}
+  }
+  &-discount {max-width: 180px; @include btnColor($main-color, #111); font-weight: 700; padding: .5em 1em; text-align: center; margin: 0 auto;}
+}
+
+
+.loader {position: absolute; display: flex; display: none; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,.9);
+  &-inner {position: relative; display: flex; max-width: 600px; margin: auto; flex-direction: column; align-items: center;}
+  &-spinner {position: relative; width: 50px; height: 50px; border-radius: 50%; border: 1px solid $main-color;
+    &::after {content: ''; position: absolute; display: block; top: -1px; left: -1px; right: -1px; bottom: -1px; border-radius: 50%; border: 15px solid transparent; border-top: 15px solid $main-color; border-bottom: 15px solid $main-color; animation: spinRight 1.4s linear infinite;}
+    &::before {content: ''; position: absolute; display: block; top: -8px; left: -8px; right: -8px; bottom: -8px; border-radius: 50%; border: 2px solid transparent; border-top: 2px solid $main-color; border-bottom: 2px solid $main-color; animation: spinLeft 1.4s linear infinite;}
+  }
+  &-text {font-size: 20px; text-align: center; margin-top: 20px; font-weight: 600;}
+}
+
+
+.social {
+  &-title {font-size: 16px; margin-bottom: 10px;}
+}
+
+
+.main {padding: 60px 0;
+  // &-title {border: 6px solid $main-color; background: rgba(255,255,255,.9); margin-bottom: 30px;
+  //   h1 {text-align: center; padding: 28px; font-weight: 600; font-size: 24px;}
+  // }
+  &-body {position: relative; border: 6px solid $main-color; background: rgba(255,255,255,.9);}
+}
+
+
+.index {display: flex; flex-direction: column; align-items: center; padding: 30px;
+  &-title {margin-bottom: 30px; font-size: 24px; font-weight: 600; text-align: center;}
+  &-presents {margin: 0; font-size: 22px; font-weight: 600;
+    .presents-body {min-height: 0px; background: none; border: none;
+      ol, ul {list-style: none; padding: 0;}
+      li { @include btnColor(#cccccc, #111); padding: .3em .8em; margin-bottom: 10px; border-radius: 4px;}
+    }
+  }
+  &-achievs {display: flex; justify-content: center;
+    img {margin: 0 30px; width: 100%; height: 100%;}
+  }
+  &-btn {margin-top: 30px; font-size: 1.5em; transition: .5s;
+    .button {text-transform: uppercase;}
+  }
+}
+
+
+.quiz {display: none; padding: 30px;
+  &-steps {display: flex; list-style: none; padding: 0; justify-content: center; margin: 0 0 20px 0;
+    li {position: relative; display: flex; justify-content: center; align-items: center; width: 28px; height: 28px; border: 2px solid darken($main-color, 10%); border-radius: 50%; text-align: center; line-height: 0; font-weight: 600; margin-right: 10px; font-size: 14px; transition: .7s;
+      &:not(:last-child)::after {
+        content: ''; position: absolute; display: block; width: 10px; height: 2px;top: 0; bottom: 0; right: -12px; margin: auto; background: darken($main-color, 10%); transition: .5s .1s;
+      }
+      &:last-child {margin-right: 0;}
+    }
+    .active {background: $main-color;}
+  }
+  &-test {margin-bottom: 30px;}
+  &-presents {margin-bottom: 15px; min-height: 160px;}
+  &-form {background: #cccccc;}
+}
+
+
+.finish {display: none; padding: 30px;
+  &-header {font-weight: 600; text-align: center; font-size: 24px; margin-bottom: 30px;}
+  &-presents {font-size: 20px; margin-bottom: 30px;
+    .presents-body {display: flex; align-items: center; flex-direction: column;}
+  }
+  &-form {max-width: 250px; margin: 0 auto;}
+}
+
+
+.thank {display: none; padding: 30px;
+  &-header {font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 30px;}
+  &-body {font-size: 18px; text-align: center; margin-bottom: 30px;}
+  &-footer {font-size: 20px; text-align: center; padding-top: 20px;}
+}
+
+
+.footer {background: #444444; color: #ffffff; margin-top: auto; padding: 10px 0;
+  &-inner {display: flex; align-items: center; }
+  .copyright {text-align: center; padding: .5rem 0;}
+  .info {display: flex; justify-content: flex-end; align-items: center; height: 100%; padding: 1rem 0; font-size: .8em;}
+}
+
+
+.form {padding: 15px;
+  form {display: flex; flex-direction: column; align-items: center;}
+  &-title {width: 100%; font-size: 16px; text-align: center; padding: 10px; margin-bottom: 10px;}
+  &-btn {text-align: center; width: 100%;}
+}
+
+
+.copyright {text-align: center;}
+
+
+/* Animations */
+
+@keyframes spinRight {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+
+@keyframes spinLeft {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(-360deg);}
+}
+
+
+
+
+
+/* Media */
+
+@media only screen and (max-width : $breakpoint-md) {
+
+  .header {padding-top: 2rem;
+    &-brendname {display: none;}
+  }
+
+  .footer {
+    .copyright {font-size: .8em;}
+    .info {justify-content: center; font-size: .7em; padding-top: 0;}
+  }
+
+}
+
+
+@media only screen and (max-width : $breakpoint-sm) {
+
+  .header {
+    &-title {margin-top: 30px;
+      &-lg {
+        h1 {font-size: 24px;}
+      }
+    }
+  }
+
+
+  .main {padding: 30px 0;}
+
+
+  .index {padding: 30px 15px;
+    &-title {margin-bottom: 30px; font-size: 24px; font-weight: 600; text-align: center;}
+    &-presents {margin: 0; font-size: 20px;}
+    &-achievs {display: flex; justify-content: center; margin-top: 30px;
+      img {margin: 0 30px; width: 100%; height: 100%;}
+    }
+    &-btn {font-size: 1em;}
+  }
+
+
+  .quiz {padding: 30px 15px;
+    &-presents {margin-bottom: 0; font-weight: 600;}
+  }
+
+
+  .test {
+    &-question {font-size: 20px; text-align: center; font-weight: 600;}
+    &-answers {list-style: none; padding: 0; font-size: 14px; font-weight: 600;}
+    &-btn {margin-top: 20px; text-align: center;}
+  }
+
+}
+
+
+@media only screen and (max-width : $breakpoint-xs) {
+
+  .header {padding-top: 2rem;
+    &-logo {}
+    &-brendname {display: none;}
+    &-title {
+      h1 {font-size: 16px;}
+      &-lg {
+        h1 {font-size: 16px; padding: 10px;}
+      }
+    }
+  }
+
+
+  .index {
+    &-title {font-size: 16px;}
+    &-presents {font-size: 16px;}
+    &-achievs {display: none;}
+  }
+
+
+  .quiz {
+    &-steps {flex-wrap: wrap;
+      li {width: 20px; height: 20px; border: 2px solid darken($main-color, 10%); margin-right: 3px; font-size: .9em; color: transparent;
+        &:not(:last-child)::after {
+          opacity: 0; width: 3px;
+        }
+      }
+    }
+    &-presents {margin-bottom: 0; font-weight: 600;}
+  }
+
+
+  .finish {padding: 30px 15px;
+    &-header {font-size: 20px;}
+    &-presents {font-size: 16px; font-weight: 600;}
+    &-form {max-width: none; padding: 15px 0;}
+  }
+
+}
